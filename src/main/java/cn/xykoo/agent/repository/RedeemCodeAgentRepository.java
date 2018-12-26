@@ -31,4 +31,13 @@ public interface RedeemCodeAgentRepository extends JpaRepository<RedeemCodeAgent
      * @return
      */
     RedeemCodeAgent findByRedeemCodeAgentId(Integer id);
+
+    /**
+     * 登录
+     * @param loginAccount 账号
+     * @param loginPassword 密码
+     * @param state 状态
+     * @return 账户
+     */
+    RedeemCodeAgent findByLoginAccountAndLoginPasswordAndState(String loginAccount, String loginPassword, int state);
 }

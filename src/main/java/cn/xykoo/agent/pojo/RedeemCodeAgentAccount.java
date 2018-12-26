@@ -21,11 +21,23 @@ public class RedeemCodeAgentAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
 
+    /**
+     * 代理商ID
+     */
     private Integer agentId;
 
+    /**
+     * 账户余额
+     */
     private Integer balance;
 
+    /**
+     * 总卡数
+     */
     private Integer cardTotal;
 
+    /**
+     * 激活卡数
+     */
     private Integer activationCard;
 }

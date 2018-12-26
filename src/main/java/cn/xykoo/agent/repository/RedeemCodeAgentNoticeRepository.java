@@ -4,6 +4,8 @@ import cn.xykoo.agent.pojo.RedeemCodeAgentNotice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 兑换码代理商通知
  *
@@ -14,4 +16,5 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public interface RedeemCodeAgentNoticeRepository extends JpaRepository<RedeemCodeAgentNotice,Integer> {
+    List<RedeemCodeAgentNotice> findAllByAgentId(Integer agentId);
 }

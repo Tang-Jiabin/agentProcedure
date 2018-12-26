@@ -17,6 +17,8 @@ public class UserVO {
 
     private String headPortrait;
 
+    private String name;
+
     private Integer balance;
 
     private Integer cardTotal;

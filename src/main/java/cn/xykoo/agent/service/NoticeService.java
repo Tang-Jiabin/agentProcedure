@@ -17,4 +17,11 @@ public interface NoticeService {
      * @return 消息
      */
     KVResult getNotice(Integer agentId);
+
+    /**
+     * 获取采购记录
+     * @param agentId 代理商ID
+     * @return 采购记录
+     */
+    KVResult getPurchaseRecord(Integer agentId);
 }

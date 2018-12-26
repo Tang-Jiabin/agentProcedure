@@ -21,4 +21,5 @@ public interface RedeemCodeRenewalRepository extends JpaRepository<RedeemCodeRen
 
     List<RedeemCodeRenewal> findAllByCreateDateIsBetween(Date startDate, Date endDate);
 
+    List<RedeemCodeRenewal> findAllByRedeemCodeAgentIdAndRoyaltyTypeAndCreateDateIsBetween(Integer agentId, Integer renewalType, Date start, Date end);
 }

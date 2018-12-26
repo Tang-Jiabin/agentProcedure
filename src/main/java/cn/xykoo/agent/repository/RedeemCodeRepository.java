@@ -20,23 +20,6 @@ import java.util.List;
 @Repository
 public interface RedeemCodeRepository extends JpaRepository<RedeemCode,Integer>, JpaSpecificationExecutor<RedeemCode> {
 
-    @Query("SELECT redeemCode FROM RedeemCode")
-    List<String> findAllRedeemCode();
 
-    @Query("SELECT MAX(sequenceNo) FROM RedeemCode WHERE batchNo =?1")
-    Integer findMaxSequenceNoByBatchNo(String batchNo);
-
-    List<RedeemCode> findAllByBatchIdIn(List<Integer> batchIdList);
-
-    List<RedeemCode> findAllBySequenceNoIsGreaterThanEqualAndSequenceNoLessThanEqualAndBatchNo(Integer greater, Integer less, String batchNo);
-
-    List<RedeemCode> findAllByRedeemCodeAgentIdIn(List<Integer> agentIdList);
-
-    List<RedeemCode> findAllByAllotDateIsBetween(Date startDate, Date endDate);
-
-    RedeemCode findByCardNo(String cardNumber);
-
-    List<RedeemCode> findAllByBatchId(Integer batchId);
-
-    List<RedeemCode> findAllByRedeemCodeIdIn(List<Integer> redeemCodeIdList);
+    List<RedeemCode> findAllByRedeemCodeAgentIdAndActivationTimeBetween(Integer agentId, Date start, Date end);
 }

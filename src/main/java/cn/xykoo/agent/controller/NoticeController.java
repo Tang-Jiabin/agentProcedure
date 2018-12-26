@@ -28,9 +28,17 @@ public class NoticeController {
 
     @Authorization
     @ApiOperation(value = "消息")
-    @PostMapping(value = "/getNotice")
+    @GetMapping(value = "/getNotice")
     public ServerResponse getNotice(@ApiIgnore @RequestAttribute Integer agentId) {
         KVResult result = noticeService.getNotice(agentId);
+        return ServerResponse.createMessage(result);
+    }
+
+    @Authorization
+    @ApiOperation(value = "获取采购记录")
+    @GetMapping(value = "/getPurchaseRecord")
+    public ServerResponse getPurchaseRecord(@ApiIgnore @RequestAttribute Integer agentId) {
+        KVResult result = noticeService.getPurchaseRecord(agentId);
         return ServerResponse.createMessage(result);
     }
 }

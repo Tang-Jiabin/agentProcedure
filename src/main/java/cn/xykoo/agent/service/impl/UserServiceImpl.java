@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
+
     @Autowired
     private RedeemCodeAgentRepository redeemCodeAgentRepository;
     @Autowired
@@ -36,8 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public KVResult signIn(String name, String password) {
 
-        RedeemCodeAgent redeemCodeAgent = redeemCodeAgentRepository.findByLoginAccountAndLoginPassword(name,password);
-
+        RedeemCodeAgent redeemCodeAgent = redeemCodeAgentRepository.findByLoginAccountAndLoginPasswordAndState(name,password,1);
         TokenModel token = null;
         if (redeemCodeAgent != null) {
             token = tokenManage.createToken(redeemCodeAgent.getRedeemCodeAgentId());
@@ -63,10 +63,14 @@ public class UserServiceImpl implements UserService {
     public KVResult getUserInfo(Integer agentId) {
 
         RedeemCodeAgentAccount redeemCodeAgentAccount = redeemCodeAgentAccountRepository.findByAgentId(agentId);
-
+        RedeemCodeAgent redeemCodeAgent = redeemCodeAgentRepository.findByRedeemCodeAgentId(agentId);
         UserVO userVO = new UserVO();
         if (redeemCodeAgentAccount != null) {
             BeanUtils.copyProperties(redeemCodeAgentAccount,userVO);
+        }
+        if(redeemCodeAgent != null){
+            userVO.setName(redeemCodeAgent.getName());
+            userVO.setHeadPortrait("http://img-cdn.xykoo.cn/touxiang.png");
         }
 
 

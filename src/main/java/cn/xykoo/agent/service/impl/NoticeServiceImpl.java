@@ -1,8 +1,13 @@
 package cn.xykoo.agent.service.impl;
 
 import cn.xykoo.agent.common.http.KVResult;
+import cn.xykoo.agent.pojo.RedeemCodeAgentNotice;
+import cn.xykoo.agent.pojo.RedeemCodePurchaseRecord;
+import cn.xykoo.agent.repository.RedeemCodeAgentNoticeRepository;
+import cn.xykoo.agent.repository.RedeemCodePurchaseRecordRepository;
 import cn.xykoo.agent.service.NoticeService;
-import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +22,24 @@ import java.util.List;
  **/
 @Service
 public class NoticeServiceImpl implements NoticeService {
+
+    @Autowired
+    private RedeemCodeAgentNoticeRepository redeemCodeAgentNoticeRepository;
+    @Autowired
+    private RedeemCodePurchaseRecordRepository redeemCodePurchaseRecordRepository;
+
     @Override
     public KVResult getNotice(Integer agentId) {
-        List list = Lists.newArrayList();
+        List<RedeemCodeAgentNotice> noticeList = redeemCodeAgentNoticeRepository.findAllByAgentId(agentId);
 
-        return KVResult.put(list);
+        return KVResult.put(noticeList);
+    }
+
+    @Override
+    public KVResult getPurchaseRecord(Integer agentId) {
+
+        List<RedeemCodePurchaseRecord> purchaseRecordList = redeemCodePurchaseRecordRepository.findAllByAgentId(agentId);
+
+        return KVResult.put(HttpStatus.OK,purchaseRecordList);
     }
 }

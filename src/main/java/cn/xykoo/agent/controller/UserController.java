@@ -45,7 +45,7 @@ public class UserController {
 
     @Authorization
     @ApiOperation(value = "获取个人信息")
-    @PostMapping(value = "/getUserInfo")
+    @GetMapping(value = "/getUserInfo")
     public ServerResponse getUserInfo(@ApiIgnore @RequestAttribute Integer agentId) {
         KVResult result = userService.getUserInfo(agentId);
         return ServerResponse.createMessage(result);
