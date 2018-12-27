@@ -16,9 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * 兑换码
@@ -41,8 +44,9 @@ public class RedeemCodeServiceImpl  implements RedeemCodeServicer {
 
     @Override
     public KVResult getAdded(Date start, Date end, Integer agentId) {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        List<RedeemCode> redeemCodeList = redeemCodeRepository.findAllByRedeemCodeAgentIdAndActivationTimeBetween(agentId, start, end);
+        List<RedeemCode> redeemCodeList = redeemCodeRepository.findAllByRedeemCodeAgentIdAndActivationTimeBetweenAndActivationState(agentId, start, end,1);
 
         List<Integer> userIdList = new ArrayList<>();
         for (RedeemCode redeemCode : redeemCodeList) {
@@ -55,6 +59,8 @@ public class RedeemCodeServiceImpl  implements RedeemCodeServicer {
         List<RedeemCodeVO> redeemCodeVOList = new ArrayList<>();
         RedeemCodeVO redeemCodeVO;
         for (RedeemCode redeemCode : redeemCodeList) {
+            System.out.println(sf.format(redeemCode.getActivationTime()));
+
             redeemCodeVO = new RedeemCodeVO();
             BeanUtils.copyProperties(redeemCode,redeemCodeVO);
             for (User user : userList) {
@@ -62,6 +68,9 @@ public class RedeemCodeServiceImpl  implements RedeemCodeServicer {
                     redeemCodeVO.setPhone(user.getPhone());
                 }
             }
+            System.out.println(sf.format(redeemCodeVO.getActivationTime()));
+            System.out.println("-------");
+
             redeemCodeVOList.add(redeemCodeVO);
         }
 
@@ -94,6 +103,6 @@ public class RedeemCodeServiceImpl  implements RedeemCodeServicer {
             redeemCodeVOList.add(redeemCodeRenewalVO);
         }
 
-        return KVResult.put(HttpStatus.OK,renewalList);
+        return KVResult.put(HttpStatus.OK,redeemCodeVOList);
     }
 }

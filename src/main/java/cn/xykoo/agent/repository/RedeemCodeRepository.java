@@ -22,4 +22,6 @@ public interface RedeemCodeRepository extends JpaRepository<RedeemCode,Integer>,
 
 
     List<RedeemCode> findAllByRedeemCodeAgentIdAndActivationTimeBetween(Integer agentId, Date start, Date end);
+
+    List<RedeemCode> findAllByRedeemCodeAgentIdAndActivationTimeBetweenAndActivationState(Integer agentId, Date start, Date end, int state);
 }
