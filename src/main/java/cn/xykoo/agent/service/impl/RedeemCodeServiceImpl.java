@@ -59,6 +59,7 @@ public class RedeemCodeServiceImpl  implements RedeemCodeServicer {
         List<RedeemCodeVO> redeemCodeVOList = new ArrayList<>();
         RedeemCodeVO redeemCodeVO;
         for (RedeemCode redeemCode : redeemCodeList) {
+            System.out.println(redeemCode.getActivationTime().getTime());
             System.out.println(sf.format(redeemCode.getActivationTime()));
 
             redeemCodeVO = new RedeemCodeVO();
