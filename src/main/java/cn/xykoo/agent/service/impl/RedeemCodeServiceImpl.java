@@ -44,7 +44,6 @@ public class RedeemCodeServiceImpl  implements RedeemCodeServicer {
 
     @Override
     public KVResult getAdded(Date start, Date end, Integer agentId) {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         List<RedeemCode> redeemCodeList = redeemCodeRepository.findAllByRedeemCodeAgentIdAndActivationTimeBetweenAndActivationState(agentId, start, end,1);
 
@@ -59,8 +58,6 @@ public class RedeemCodeServiceImpl  implements RedeemCodeServicer {
         List<RedeemCodeVO> redeemCodeVOList = new ArrayList<>();
         RedeemCodeVO redeemCodeVO;
         for (RedeemCode redeemCode : redeemCodeList) {
-            System.out.println(redeemCode.getActivationTime().getTime());
-            System.out.println(sf.format(redeemCode.getActivationTime()));
 
             redeemCodeVO = new RedeemCodeVO();
             BeanUtils.copyProperties(redeemCode,redeemCodeVO);
@@ -69,8 +66,6 @@ public class RedeemCodeServiceImpl  implements RedeemCodeServicer {
                     redeemCodeVO.setPhone(user.getPhone());
                 }
             }
-            System.out.println(sf.format(redeemCodeVO.getActivationTime()));
-            System.out.println("-------");
 
             redeemCodeVOList.add(redeemCodeVO);
         }
